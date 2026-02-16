@@ -1,23 +1,29 @@
-// ১. লোডিং স্পিনার কন্ট্রোল
-const manageSpinner = (status) => {
+// 1. loading spinner control (same as before)
+
+   const manageSpinner = (status) => {
     const spinner = document.getElementById("spinner");
-    if (status) {
+    if(status){
         spinner.classList.remove("hidden");
     } else {
         spinner.classList.add("hidden");
     }
-};
+   };
 
-// ২. সব ক্যাটাগরি লোড করা
-const loadCategories = () => {
-    fetch("https://fakestoreapi.com/products/categories")
-        .then(res => res.json())
-        .then(data => displayCategories(data))
-        .catch(err => console.error(err));
-};
 
+// 2. All Categories লোড করা (Async/Await) - এই ফাংশনটি সব ক্যাটাগরি লোড করবে এবং তারপর displayCategories ফাংশনকে কল করবে
+
+  const loadCategories = async () => {
+    try {
+        const res = await fetch("https://fakestoreapi.com/products/categories");
+        const data = await res.json();
+        displayCategories(data);
+    } catch (err) {
+        console.error("Categories লোড করতে সমস্যা হয়েছে:", err);
+    }
+  };
 
 // ৩. ক্যাটাগরি বাটনগুলো ডিসপ্লে করা
+
 const displayCategories = (categories) => {
     const categoryContainer = document.getElementById("category-container");
     categoryContainer.innerHTML = "";
@@ -26,6 +32,10 @@ const displayCategories = (categories) => {
     const allBtn = document.createElement("button");
     allBtn.className = "btn btn-outline border-purple-700 text-purple-700 rounded-full px-6 category-btn capitalize hover:bg-purple-700 hover:text-white";
     allBtn.innerText = "All Products";
+    
+    // Default বাটনকে একটিভ দেখাতে চাইলে এই ক্লাসগুলো যোগ করা হয়েছে
+    allBtn.classList.add("bg-purple-700", "text-white");
+
     allBtn.onclick = (e) => {
         updateActiveBtn(e.target);
         loadProducts("all");
@@ -44,7 +54,8 @@ const displayCategories = (categories) => {
     });
 };
 
-// ৪. ক্যাটাগরি বাটন ক্লিক করলে একটিভ কালার চেঞ্জ করা
+// ৪. ক্যাটাগরি বাটন একটিভ স্টেট ম্যানেজ করা
+
 const updateActiveBtn = (clickedBtn) => {
     const allBtns = document.querySelectorAll(".category-btn");
     allBtns.forEach(btn => {
@@ -55,8 +66,9 @@ const updateActiveBtn = (clickedBtn) => {
     clickedBtn.classList.add("bg-purple-700", "text-white", "border-purple-700");
 };
 
-// ৫. প্রোডাক্ট লোড করা (Category Wise)
-const loadProducts = (category) => {
+// ৫. প্রোডাক্ট লোড করা (Async/Await)
+
+const loadProducts = async (category) => {
     manageSpinner(true);
     const productContainer = document.getElementById("product-container");
     productContainer.innerHTML = ""; 
@@ -66,29 +78,33 @@ const loadProducts = (category) => {
         url = `https://fakestoreapi.com/products/category/${category}`;
     }
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            displayProducts(data);
-            manageSpinner(false);
-        });
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayProducts(data);
+    } catch (err) {
+        console.error("Products লোড করতে সমস্যা হয়েছে:", err);
+    } finally {
+        manageSpinner(false);
+    }
 };
 
 // ৬. প্রোডাক্ট কার্ডগুলো ডিসপ্লে করা
+
 const displayProducts = (products) => {
     const productContainer = document.getElementById("product-container");
     
     products.forEach(product => {
         const card = document.createElement("div");
-        card.className = "group border border-gray-100 rounded-3xl p-4 hover:shadow-2xl transition-all bg-white";
+        card.className = "group border border-gray-100 rounded-3xl p-4 hover:shadow-2xl transition-all bg-white flex flex-col";
         card.innerHTML = `
             <div class="bg-gray-50 rounded-2xl h-64 overflow-hidden relative p-8">
                 <img src="${product.image}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500" alt="${product.title}">
-                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-purple-700 border border-purple-100 italic">
+                <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-purple-700 border border-purple-100">
                     ⭐ ${product.rating.rate}
                 </div>
             </div>
-            <div class="mt-4 px-2">
+            <div class="mt-4 px-2 flex-grow">
                 <h3 class="text-lg font-bold text-gray-800 line-clamp-1 group-hover:text-purple-700 transition">${product.title}</h3>
                 <p class="text-gray-400 text-xs mt-1 capitalize italic">${product.category}</p>
                 <div class="flex justify-between items-center mt-4">
@@ -103,15 +119,21 @@ const displayProducts = (products) => {
     });
 };
 
-// ৭. সিঙ্গেল প্রোডাক্ট ডিটেইল লোড করা (API: /products/${id})
+// ৭. সিঙ্গেল প্রোডাক্ট ডিটেইল লোড করা (Async/Await)
+
 const loadProductDetail = async (id) => {
-    const url = `https://fakestoreapi.com/products/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayProductDetail(data);
+    try {
+        const url = `https://fakestoreapi.com/products/${id}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        displayProductDetail(data);
+    } catch (err) {
+        console.error("Detail লোড করতে সমস্যা হয়েছে:", err);
+    }
 };
 
-// ৮. মডালের ভেতরে ডিটেইল দেখানো
+// ৮. মডাল কন্টেন্ট দেখানো (এটি আগের মতোই থাকবে)
+
 const displayProductDetail = (product) => {
     const container = document.getElementById("modal-content-container");
     container.innerHTML = `
@@ -121,7 +143,7 @@ const displayProductDetail = (product) => {
             </div>
             <div class="w-full md:w-1/2 space-y-4">
                 <h2 class="text-2xl font-black text-gray-900 leading-tight">${product.title}</h2>
-                <span class="badge bg-purple-100 text-purple-700 border-none font-bold p-3">${product.category}</span>
+                <span class="badge bg-purple-100 text-purple-700 border-none font-bold p-3 uppercase text-xs">${product.category}</span>
                 <p class="text-gray-600 text-sm leading-relaxed">${product.description}</p>
                 <div class="flex items-center gap-4">
                     <span class="text-3xl font-black text-purple-700">$${product.price}</span>
@@ -132,9 +154,10 @@ const displayProductDetail = (product) => {
             </div>
         </div>
     `;
-    product_modal.showModal();
+    document.getElementById("product_modal").showModal();
 };
 
-// পেজ লোড হলে কল হবে
+// enitially সব ক্যাটাগরি এবং প্রোডাক্ট লোড করা
+
 loadCategories();
 loadProducts("all");
