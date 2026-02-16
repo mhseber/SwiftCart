@@ -49,9 +49,18 @@
       </div>
 
       <div class="navbar-end flex items-center gap-2 md:gap-4">
-        <button class="btn btn-ghost btn-circle hover:text-purple-700">
-          <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
-        </button>
+
+        <!-- cart side bar -->
+
+        <div class="navbar-end flex items-center gap-2 md:gap-4">
+  <label for="cart-drawer" onclick="displayCartItems()" class="btn btn-ghost btn-circle hover:text-purple-700 relative cursor-pointer">
+    <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
+    <span class="cart-count badge badge-sm bg-purple-700 text-white absolute -top-1 -right-1">0</span>
+  </label>
+  
+  </div>
+
+        <!-- dropdown -->
 
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -156,7 +165,7 @@
             <span>Total:</span>
             <span id="cart-total">$0.00</span>
           </div>
-          <button class="btn bg-purple-700 text-white w-full mt-4 border-none">Checkout</button>
+          <button onclick="handleCheckout()" class="btn bg-purple-700 text-white w-full mt-4 border-none">Checkout</button>
         </div>
       </div>
     </div>

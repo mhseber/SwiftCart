@@ -194,6 +194,42 @@ const removeFromCart = (index) => {
     displayCartItems(); // রিমুভ করার পর লিস্ট আপডেট
 };
 
+// ১২. চেকআউট হ্যান্ডলার
+const handleCheckout = () => {
+    // যদি কার্ট খালি থাকে তবে চেকআউট করতে দিবে না
+    if (cart.length === 0) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Your cart is empty!',
+        });
+        return;
+    }
+
+    // ১. SweetAlert দিয়ে সাকসেস মেসেজ দেখানো
+    
+    Swal.fire({
+        title: 'Successful Purchase!',
+        text: 'Thank you for shopping with SwiftCart. Your products are on the way!',
+        icon: 'success',
+        confirmButtonColor: '#7e22ce', // purple-700 color
+        confirmButtonText: 'Great!'
+    });
+
+    // ২. কার্ট অ্যারে খালি করা
+    cart = [];
+    
+    // ৩. নেভবার এবং ড্রয়ারের ডাটা আপডেট করা
+    updateCartCount();
+    displayCartItems();
+
+    // ৪. ড্রয়ার বন্ধ করা (Checkbox টি আনচেক করে দিলে ড্রয়ার চলে যায়)
+    const drawerToggle = document.getElementById("cart-drawer");
+    if (drawerToggle) {
+        drawerToggle.checked = false;
+    }
+};
+
 // ইনিশিয়াল কল
 
 loadCategories();
