@@ -22,6 +22,9 @@
 
         <!-- stylesheet -->
     <link rel="stylesheet" href="./Style/style.css">
+
+    <!--sweetalert2   -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body> 
@@ -46,9 +49,17 @@
       </div>
 
       <div class="navbar-end flex items-center gap-2 md:gap-4">
-        <button class="btn btn-ghost btn-circle hover:text-purple-700">
-          <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
-        </button>
+
+        <!-- cart -->
+
+      <div class="navbar-end flex items-center gap-2 md:gap-4">
+  <label for="cart-drawer" onclick="displayCartItems()" class="btn btn-ghost btn-circle hover:text-purple-700 relative cursor-pointer">
+    <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
+    <span class="cart-count badge badge-sm bg-purple-700 text-white absolute -top-1 -right-1">0</span>
+  </label>
+  
+  </div>
+        <!-- dropdown -->
 
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -264,8 +275,32 @@
     </div>
   </footer>
 
+<!-- cart side bar  -->
+
+<div class="drawer drawer-end z-[60]">
+    <input id="cart-drawer" type="checkbox" class="drawer-toggle" />
+    
+    <div class="drawer-content">
+        </div>
+
+    <div class="drawer-side">
+      <label for="cart-drawer" class="drawer-overlay"></label>
+      <div class="menu p-4 w-80 min-h-full bg-base-100 text-base-content flex flex-col">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Shopping Cart</h2>
+        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
+        <div class="border-t pt-4 mt-4">
+          <div class="flex justify-between text-xl font-bold">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+          <button class="btn bg-purple-700 text-white w-full mt-4 border-none">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+<script src="./script/index.js"></script>
 </body>
 
 </html>

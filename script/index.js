@@ -1,4 +1,7 @@
-// ১. লোডিং স্পিনার কন্ট্রোল
+// ১. গ্লোবাল স্টেট
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// ২. লোডিং স্পিনার কন্ট্রোল
 const manageSpinner = (status) => {
     const spinner = document.getElementById("spinner");
     if (status) {
@@ -8,108 +11,89 @@ const manageSpinner = (status) => {
     }
 };
 
-// ২. সব ক্যাটাগরি লোড করা (Async/Await)
+// ৩. নেভবার কার্ট কাউন্ট আপডেট
+
+const updateCartCount = () => {
+    const cartCountElements = document.querySelectorAll(".cart-count"); // নেভবারে একটি ব্যাজ যোগ করতে হবে
+    cartCountElements.forEach(el => el.innerText = cart.length);
+    localStorage.setItem("cart", JSON.stringify(cart));
+};
+
+// ৪. ক্যাটাগরি লোড করা
 const loadCategories = async () => {
     try {
         const res = await fetch("https://fakestoreapi.com/products/categories");
         const data = await res.json();
         displayCategories(data);
     } catch (err) {
-        console.error("Categories লোড করতে সমস্যা হয়েছে:", err);
+        console.error("Categories error:", err);
     }
 };
 
-// ৩. ক্যাটাগরি বাটনগুলো ডিসপ্লে করা
+// ৫. ক্যাটাগরি বাটন ডিসপ্লে ও একটিভ স্টেট
 const displayCategories = (categories) => {
     const categoryContainer = document.getElementById("category-container");
     categoryContainer.innerHTML = "";
 
-    // "All Products" বাটন তৈরি
-    const allBtn = document.createElement("button");
-    allBtn.className = "btn btn-outline border-purple-700 text-purple-700 rounded-full px-6 category-btn capitalize hover:bg-purple-700 hover:text-white bg-purple-700 text-white"; // Default Active
-    allBtn.innerText = "All Products";
-    allBtn.onclick = (e) => {
-        updateActiveBtn(e.target);
-        loadProducts("all");
-    };
-    categoryContainer.append(allBtn);
-
-    categories.forEach(category => {
+    const createBtn = (name, isActive = false) => {
         const btn = document.createElement("button");
-        btn.className = "btn btn-outline border-gray-300 text-gray-600 rounded-full px-6 category-btn capitalize hover:bg-purple-700 hover:text-white";
-        btn.innerText = category;
+        btn.className = `btn btn-outline rounded-full px-6 category-btn capitalize transition-all ${isActive ? 'bg-purple-700 text-white border-purple-700' : 'border-gray-300 text-gray-600 hover:bg-purple-700 hover:text-white'}`;
+        btn.innerText = name === "all" ? "All Products" : name;
         btn.onclick = (e) => {
-            updateActiveBtn(e.target);
-            loadProducts(category);
+            document.querySelectorAll(".category-btn").forEach(b => {
+                b.classList.remove("bg-purple-700", "text-white", "border-purple-700");
+                b.classList.add("border-gray-300", "text-gray-600");
+            });
+            btn.classList.add("bg-purple-700", "text-white", "border-purple-700");
+            loadProducts(name);
         };
-        categoryContainer.append(btn);
-    });
+        return btn;
+    };
+
+    categoryContainer.append(createBtn("all", true));
+    categories.forEach(cat => categoryContainer.append(createBtn(cat)));
 };
 
-// ৪. ক্যাটাগরি বাটন একটিভ স্টেট ম্যানেজ করা
-const updateActiveBtn = (clickedBtn) => {
-    const allBtns = document.querySelectorAll(".category-btn");
-    allBtns.forEach(btn => {
-        btn.classList.remove("bg-purple-700", "text-white", "border-purple-700");
-        btn.classList.add("border-gray-300", "text-gray-600");
-    });
-    clickedBtn.classList.remove("border-gray-300", "text-gray-600");
-    clickedBtn.classList.add("bg-purple-700", "text-white", "border-purple-700");
-};
-
-// ৫. প্রোডাক্ট লোড করা (Async/Await)
+// ৬. প্রোডাক্ট লোড করা
 const loadProducts = async (category) => {
     manageSpinner(true);
     const productContainer = document.getElementById("product-container");
     productContainer.innerHTML = ""; 
 
-    let url = "https://fakestoreapi.com/products";
-    if (category !== "all") {
-        url = `https://fakestoreapi.com/products/category/${category}`;
-    }
+    let url = category === "all" ? "https://fakestoreapi.com/products" : `https://fakestoreapi.com/products/category/${category}`;
 
     try {
         const res = await fetch(url);
         const data = await res.json();
         displayProducts(data);
     } catch (err) {
-        console.error("Products লোড করতে সমস্যা হয়েছে:", err);
+        console.error("Products error:", err);
     } finally {
         manageSpinner(false);
     }
 };
 
-// ৬. প্রোডাক্ট কার্ডগুলো ডিসপ্লে করা
+// ৭. প্রোডাক্ট কার্ড ডিসপ্লে
 const displayProducts = (products) => {
     const productContainer = document.getElementById("product-container");
-    
     products.forEach(product => {
         const card = document.createElement("div");
         card.className = "group border border-gray-100 rounded-3xl p-4 hover:shadow-2xl transition-all bg-white flex flex-col";
         card.innerHTML = `
             <div class="bg-gray-50 rounded-2xl h-64 overflow-hidden relative p-8">
-                <img src="${product.image}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500" alt="${product.title}">
-                <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-purple-700 border border-purple-100 shadow-sm">
+                <img src="${product.image}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
+                <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-xs font-bold text-purple-700 border border-purple-100 italic">
                     ⭐ ${product.rating.rate}
                 </div>
             </div>
             <div class="mt-4 px-2 flex-grow flex flex-col">
-                <h3 class="text-lg font-bold text-gray-800 line-clamp-1 group-hover:text-purple-700 transition" title="${product.title}">${product.title}</h3>
-                <div class="flex items-center gap-2 mt-1">
-                    <span class="badge badge-ghost text-[10px] uppercase font-bold text-gray-500">${product.category}</span>
-                </div>
-                
-                <div class="mt-auto pt-4">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-2xl font-black text-gray-900">$${product.price}</span>
-                    </div>
+                <h3 class="text-lg font-bold text-gray-800 line-clamp-1">${product.title}</h3>
+                <p class="text-gray-400 text-xs mt-1 capitalize">${product.category}</p>
+                <div class="mt-auto pt-4 flex flex-col gap-3">
+                    <span class="text-2xl font-black text-gray-900">$${product.price}</span>
                     <div class="grid grid-cols-2 gap-2">
-                        <button onclick="loadProductDetail(${product.id})" class="btn btn-sm btn-outline border-purple-700 text-black  hover:bg-purple-700 hover:border-purple-700 rounded-lg">
-                            Details
-                        </button>
-                        <button class="btn btn-sm bg-purple-700 text-white border-none rounded-lg hover:bg-black">
-                            <i class="fa-solid fa-cart-plus mr-1"></i> Add
-                        </button>
+                        <button onclick="loadProductDetail(${product.id})" class="btn btn-sm btn-outline border-purple-700 text-purple-700 rounded-lg">Details</button>
+                        <button onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'")}', ${product.price}, '${product.image}')" class="btn btn-sm bg-purple-700 text-white border-none rounded-lg hover:bg-black">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -118,19 +102,41 @@ const displayProducts = (products) => {
     });
 };
 
-// ৭. সিঙ্গেল প্রোডাক্ট ডিটেইল লোড করা (Async/Await)
-const loadProductDetail = async (id) => {
-    try {
-        const url = `https://fakestoreapi.com/products/${id}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        displayProductDetail(data);
-    } catch (err) {
-        console.error("Detail লোড করতে সমস্যা হয়েছে:", err);
-    }
+// ৮. কার্টে প্রোডাক্ট যোগ করা (Updated with SweetAlert)
+
+const addToCart = (id, title, price, image) => {
+    const item = { id, title, price, image };
+    cart.push(item);
+    updateCartCount();
+    displayCartItems(); // ড্রয়ারের লিস্ট সাথে সাথে আপডেট করবে
+
+    // SweetAlert2 Toast
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+    });
+
+    Toast.fire({
+        icon: 'success',
+        title: 'Product added to cart!'
+    });
 };
 
-// ৮. মডাল কন্টেন্ট দেখানো
+// ৯. সিঙ্গেল প্রোডাক্ট ডিটেইল লোড করা
+
+const loadProductDetail = async (id) => {
+    try {
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const data = await res.json();
+        displayProductDetail(data);
+    } catch (err) { console.error(err); }
+};
+
+// ১০. মডাল কন্টেন্ট দেখানো
+
 const displayProductDetail = (product) => {
     const container = document.getElementById("modal-content-container");
     container.innerHTML = `
@@ -138,16 +144,12 @@ const displayProductDetail = (product) => {
             <div class="w-full md:w-1/2 bg-gray-50 rounded-3xl p-6">
                 <img src="${product.image}" class="w-full h-64 object-contain mx-auto" />
             </div>
-            <div class="w-full md:w-1/2 space-y-4">
-                <h2 class="text-2xl font-black text-gray-900 leading-tight">${product.title}</h2>
-                <div class="flex gap-2 items-center">
-                    <span class="badge bg-purple-100 text-purple-700 border-none font-bold py-3 uppercase text-xs">${product.category}</span>
-                    <span class="text-orange-500 font-bold text-sm">⭐ ${product.rating.rate} (${product.rating.count} reviews)</span>
-                </div>
+            <div class="w-full md:w-1/2 space-y-4 text-left">
+                <h2 class="text-2xl font-black text-gray-900">${product.title}</h2>
                 <p class="text-gray-600 text-sm leading-relaxed">${product.description}</p>
                 <div class="pt-4 flex items-center justify-between">
                     <span class="text-3xl font-black text-purple-700">$${product.price}</span>
-                    <button class="btn bg-purple-700 text-white border-none px-8 rounded-xl hover:bg-black">Buy Now</button>
+                    <button onclick="addToCart(${product.id}, '${product.title.replace(/'/g, "\\'")}', ${product.price}, '${product.image}')" class="btn bg-purple-700 text-white border-none px-8 rounded-xl">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -155,6 +157,45 @@ const displayProductDetail = (product) => {
     document.getElementById("product_modal").showModal();
 };
 
-// ইনিশিয়ালি ডেটা লোড করা
+// ১১. কার্ট আইটেম ডিসপ্লে ফাংশন (Fix for Total Calculation)
+
+const displayCartItems = () => {
+    const cartItemsContainer = document.getElementById("cart-items");
+    const totalElement = document.getElementById("cart-total");
+    
+    if(!cartItemsContainer) return; // যদি ওই পেজে কার্ট কন্টেইনার না থাকে
+
+    cartItemsContainer.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        const div = document.createElement("div");
+        div.className = "flex items-center justify-between gap-3 border-b pb-3 mb-2";
+        div.innerHTML = `
+            <img src="${item.image}" class="w-12 h-12 object-contain rounded">
+            <div class="flex-grow text-left">
+                <p class="text-xs font-bold line-clamp-1">${item.title}</p>
+                <p class="text-sm text-purple-700 font-black">$${item.price}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 transition p-2">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        `;
+        cartItemsContainer.append(div);
+    });
+
+    totalElement.innerText = `$${total.toFixed(2)}`;
+};
+
+const removeFromCart = (index) => {
+    cart.splice(index, 1);
+    updateCartCount();
+    displayCartItems(); // রিমুভ করার পর লিস্ট আপডেট
+};
+
+// ইনিশিয়াল কল
+
 loadCategories();
 loadProducts("all");
+updateCartCount();
