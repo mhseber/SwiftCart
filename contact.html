@@ -11,23 +11,45 @@
 </head>
 <body class="bg-gray-50">
 
+<!-- navbar -->
+
   <section id="navbar-section" class="fixed top-0 left-0 w-full z-50 shadow-md bg-base-100">
+    
     <div class="navbar px-4 md:px-10 lg:px-20">
+      
       <div class="navbar-start">
-        <a href="index.html" class="font-extrabold text-purple-700 text-2xl md:text-3xl cursor-pointer">SwiftCart</a>
+        <a class="font-extrabold text-purple-700 text-2xl md:text-3xl cursor-pointer">SwiftCart</a>
       </div>
+
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1 text-lg font-medium gap-2">
-          <li><a href="index.html" class="hover:bg-purple-700 hover:text-white rounded-lg">Home</a></li>
-          <li><a href="products.html" class="hover:bg-purple-700 hover:text-white rounded-lg">Products</a></li>
-          <li><a href="aboutUs.html" class="hover:bg-purple-700 hover:text-white rounded-lg">About Us</a></li>
-          <li><a href="contact.html" class="bg-purple-700 text-white rounded-lg">Contact</a></li> </ul>
+          <li><a class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Home</a></li>
+          <li><a href="products.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Products</a></li>
+          <li><a href="aboutUs.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">About Us</a></li>
+          <li><a href="contact.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Contact</a></li>
+        </ul>
       </div>
-      <div class="navbar-end">
+
+      <div class="navbar-end flex items-center gap-2 md:gap-4">
         <button class="btn btn-ghost btn-circle hover:text-purple-700">
           <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
         </button>
+
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"                   stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </div>
+          <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-2xl border border-gray-100">
+            <li><a href="index.html" class="active:bg-purple-700 hover:text-purple-700">Home</a></li>
+            <li><a href="products.html" class="active:bg-purple-700 hover:text-purple-700">Products</a></li>
+            <li><a href="aboutUs.html" class="active:bg-purple-700 hover:text-purple-700">About Us</a></li>
+            <li><a href="contact.html" class="active:bg-purple-700 hover:text-purple-700">Contact</a></li>
+          </ul>
+        </div>
       </div>
+
     </div>
   </section>
 
