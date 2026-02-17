@@ -17,31 +17,31 @@
 
 <!-- navbar -->
 
-  <section id="navbar-section" class="fixed top-0 left-0 w-full z-50 shadow-md bg-base-100">
+  <section id="navbar-section" class="fixed top-0 left-0 z-50 w-full shadow-md bg-base-100">
     
-    <div class="navbar px-4 md:px-10 lg:px-20">
+    <div class="px-4 navbar md:px-10 lg:px-20">
       
       <div class="navbar-start">
-        <a class="font-extrabold text-purple-700 text-2xl md:text-3xl cursor-pointer">SwiftCart</a>
+        <a class="text-2xl font-extrabold text-purple-700 cursor-pointer md:text-3xl">SwiftCart</a>
       </div>
 
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1 text-lg font-medium gap-2">
-          <li><a href="index.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Home</a></li>
-          <li><a href="products.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Products</a></li>
-          <li><a href="aboutUs.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">About Us</a></li>
-          <li><a href="contact.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Contact</a></li>
+      <div class="hidden navbar-center lg:flex">
+        <ul class="gap-2 px-1 text-lg font-medium menu menu-horizontal">
+          <li><a href="index.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Home</a></li>
+          <li><a href="products.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Products</a></li>
+          <li><a href="aboutUs.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">About Us</a></li>
+          <li><a href="contact.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Contact</a></li>
         </ul>
       </div>
 
-      <div class="navbar-end flex items-center gap-2 md:gap-4">
+      <div class="flex items-center gap-2 navbar-end md:gap-4">
         <button class="btn btn-ghost btn-circle hover:text-purple-700">
-          <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
+          <i class="text-2xl fa-solid fa-cart-arrow-down"></i>
         </button>
 
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"                   stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"                   stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
@@ -58,40 +58,40 @@
   </section>
 
   <main class="pt-32 pb-20">
-    <div class="container mx-auto px-6 md:px-16 lg:px-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="container px-6 mx-auto md:px-16 lg:px-24">
+      <div class="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
         
         <div>
-          <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Get In <span class="text-purple-700">Touch</span></h1>
-          <p class="text-gray-600 mb-8">Have a question or just want to say hi? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+          <h1 class="mb-6 text-4xl font-black text-gray-900 md:text-5xl">Get In <span class="text-purple-700">Touch</span></h1>
+          <p class="mb-8 text-gray-600">Have a question or just want to say hi? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           
           <div class="space-y-6">
             <div class="flex items-center gap-4">
-              <div class="size-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center"><i class="fa-solid fa-location-dot text-xl"></i></div>
+              <div class="flex items-center justify-center text-purple-700 bg-purple-100 rounded-full size-12"><i class="text-xl fa-solid fa-location-dot"></i></div>
               <div><h4 class="font-bold">Our Location</h4><p class="text-sm text-gray-500">Dhaka, Bangladesh</p></div>
             </div>
             <div class="flex items-center gap-4">
-              <div class="size-12 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center"><i class="fa-solid fa-phone text-xl"></i></div>
+              <div class="flex items-center justify-center text-purple-700 bg-purple-100 rounded-full size-12"><i class="text-xl fa-solid fa-phone"></i></div>
               <div><h4 class="font-bold">Phone Number</h4><p class="text-sm text-gray-500">+880 1234 567 890</p></div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100">
+        <div class="p-8 bg-white border border-gray-100 shadow-2xl md:p-10 rounded-3xl">
           <form class="space-y-5">
             <div class="form-control">
-              <label class="label"><span class="label-text font-bold">Full Name</span></label>
-              <input type="text" placeholder="John Doe" class="input input-bordered focus:border-purple-700 outline-none w-full" />
+              <label class="label"><span class="font-bold label-text">Full Name</span></label>
+              <input type="text" placeholder="mh seber" class="w-full outline-none input input-bordered focus:border-purple-700" />
             </div>
             <div class="form-control">
-              <label class="label"><span class="label-text font-bold">Email Address</span></label>
-              <input type="email" placeholder="email@example.com" class="input input-bordered focus:border-purple-700 outline-none w-full" />
+              <label class="label"><span class="font-bold label-text">Email Address</span></label>
+              <input type="email" placeholder="email@example.com" class="w-full outline-none input input-bordered focus:border-purple-700" />
             </div>
             <div class="form-control">
-              <label class="label"><span class="label-text font-bold">Your Message</span></label>
-              <textarea class="textarea textarea-bordered focus:border-purple-700 h-32" placeholder="Write your message here..."></textarea>
+              <label class="label"><span class="font-bold label-text">Your Message</span></label>
+              <textarea class="h-32 textarea textarea-bordered focus:border-purple-700" placeholder="Write your message here..."></textarea>
             </div>
-            <button class="btn bg-purple-700 hover:bg-purple-800 text-white w-full border-none text-lg">Send Message</button>
+            <button class="w-full text-lg text-white bg-purple-700 border-none btn hover:bg-purple-800">Send Message</button>
           </form>
         </div>
 
@@ -100,25 +100,25 @@
   </main>
   <!-- footer -->
 
-<footer class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-6 md:px-16 lg:px-24 grid grid-cols-1 md:grid-cols-4 gap-12">
+<footer class="py-16 text-white bg-gray-900">
+    <div class="container grid grid-cols-1 gap-12 px-6 mx-auto md:px-16 lg:px-24 md:grid-cols-4">
       <div class="col-span-1 md:col-span-1">
-        <h2 class="text-2xl font-black text-purple-400 mb-4">SwiftCart</h2>
+        <h2 class="mb-4 text-2xl font-black text-purple-400">SwiftCart</h2>
         <p class="text-gray-400">The best e-commerce experience with high quality products and services.</p>
       </div>
       <div>
-        <h4 class="font-bold mb-6">Quick Links</h4>
+        <h4 class="mb-6 font-bold">Quick Links</h4>
         <ul class="space-y-3 text-gray-400">
-          <li><a href="#" class="hover:text-purple-400">Shop</a></li>
-          <li><a href="#" class="hover:text-purple-400">About Us</a></li>
-          <li><a href="#" class="hover:text-purple-400">Contact</a></li>
+          <li><a href="products.html" class="hover:text-purple-400">Shop</a></li>
+          <li><a href="aboutUs.html" class="hover:text-purple-400">About Us</a></li>
+          <li><a href="contact.html" class="hover:text-purple-400">Contact</a></li>
         </ul>
       </div>
       <div class="col-span-1 md:col-span-2">
-        <h4 class="font-bold mb-6">Newsletter</h4>
+        <h4 class="mb-6 font-bold">Newsletter</h4>
         <div class="flex gap-2">
-          <input type="text" placeholder="Email Address" class="input bg-gray-800 border-none w-full rounded-full">
-          <button class="btn bg-purple-700 border-none text-white rounded-full px-8">Join</button>
+          <input type="text" placeholder="Email Address" class="w-full bg-gray-800 border-none rounded-full input">
+          <button class="px-8 text-white bg-purple-700 border-none rounded-full btn">Join</button>
         </div>
       </div>
     </div>

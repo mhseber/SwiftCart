@@ -31,31 +31,31 @@
 
   <!-- navbar -->
 
-  <section id="navbar-section" class="fixed top-0 left-0 w-full z-50 shadow-md bg-base-100">
+  <section id="navbar-section" class="fixed top-0 left-0 z-50 w-full shadow-md bg-base-100">
     
-    <div class="navbar px-4 md:px-10 lg:px-20">
+    <div class="px-4 navbar md:px-10 lg:px-20">
       
       <div class="navbar-start">
-        <a class="font-extrabold text-purple-700 text-2xl md:text-3xl cursor-pointer">SwiftCart</a>
+        <a class="text-2xl font-extrabold text-purple-700 cursor-pointer md:text-3xl">SwiftCart</a>
       </div>
 
-      <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1 text-lg font-medium gap-2">
-          <li><a href="index.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Home</a></li>
-          <li><a href="products.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Products</a></li>
-          <li><a href="aboutUs.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">About Us</a></li>
-          <li><a href="contact.html" class="hover:bg-purple-700 hover:text-white transition-all duration-300 rounded-lg">Contact</a></li>
+      <div class="hidden navbar-center lg:flex">
+        <ul class="gap-2 px-1 text-lg font-medium menu menu-horizontal">
+          <li><a href="index.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Home</a></li>
+          <li><a href="products.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Products</a></li>
+          <li><a href="aboutUs.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">About Us</a></li>
+          <li><a href="contact.html" class="transition-all duration-300 rounded-lg hover:bg-purple-700 hover:text-white">Contact</a></li>
         </ul>
       </div>
 
-      <div class="navbar-end flex items-center gap-2 md:gap-4">
+      <div class="flex items-center gap-2 navbar-end md:gap-4">
 
         <!-- cart side bar -->
 
-        <div class="navbar-end flex items-center gap-2 md:gap-4">
-  <label for="cart-drawer" onclick="displayCartItems()" class="btn btn-ghost btn-circle hover:text-purple-700 relative cursor-pointer">
-    <i class="fa-solid fa-cart-arrow-down text-2xl"></i>
-    <span class="cart-count badge badge-sm bg-purple-700 text-white absolute -top-1 -right-1">0</span>
+        <div class="flex items-center gap-2 navbar-end md:gap-4">
+  <label for="cart-drawer" onclick="displayCartItems()" class="relative cursor-pointer btn btn-ghost btn-circle hover:text-purple-700">
+    <i class="text-2xl fa-solid fa-cart-arrow-down"></i>
+    <span class="absolute text-white bg-purple-700 cart-count badge badge-sm -top-1 -right-1">0</span>
   </label>
   
   </div>
@@ -64,7 +64,7 @@
 
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"                   stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"                   stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
@@ -81,13 +81,13 @@
   </section>
 
   <!-- our products -->
-<main class="pt-32 pb-20 container mx-auto px-4">
+<main class="container px-4 pt-32 pb-20 mx-auto">
 
-    <div class="text-center mb-10 space-y-3">
-        <h1 class="text-4xl md:text-5xl font-black text-gray-900">
+    <div class="mb-10 space-y-3 text-center">
+        <h1 class="text-4xl font-black text-gray-900 md:text-5xl">
             Explore Our <span class="text-purple-700">Collections</span>
         </h1>
-        <p class="text-gray-500 max-w-lg mx-auto text-sm md:text-base">
+        <p class="max-w-lg mx-auto text-sm text-gray-500 md:text-base">
             Browse through our wide range of categories to find exactly what you're looking for. Quality and style, just a click away!
         </p>
         <div class="w-24 h-1.5 bg-purple-700 mx-auto rounded-full"></div>
@@ -96,26 +96,26 @@
     <div id="category-container" class="flex flex-wrap justify-center gap-4 mb-12">
         </div>
 
-    <div id="spinner" class="hidden text-center my-10">
-        <span class="loading loading-infinity loading-xl text-purple-800"></span>
-        <span class="loading loading-infinity loading-xl text-purple-800"></span>
-        <span class="loading loading-infinity loading-xl text-purple-800"></span>
-        <span class="loading loading-infinity loading-xl text-purple-800"></span>
+    <div id="spinner" class="hidden my-10 text-center">
+        <span class="text-purple-800 loading loading-infinity loading-xl"></span>
+        <span class="text-purple-800 loading loading-infinity loading-xl"></span>
+        <span class="text-purple-800 loading loading-infinity loading-xl"></span>
+        <span class="text-purple-800 loading loading-infinity loading-xl"></span>
     </div>
 
-    <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div id="product-container" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         </div>
 </main>
   
 <!-- modal -->
 
  <dialog id="product_modal" class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box max-w-2xl bg-white">
+  <div class="max-w-2xl bg-white modal-box">
     <div id="modal-content-container">
         </div>
     <div class="modal-action">
       <form method="dialog">
-        <button class="btn bg-purple-700 text-white border-none rounded-full px-8">Close</button>
+        <button class="px-8 text-white bg-purple-700 border-none rounded-full btn">Close</button>
       </form>
     </div>
   </div>
@@ -123,25 +123,25 @@
 
 <!-- footer -->
 
-<footer class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-6 md:px-16 lg:px-24 grid grid-cols-1 md:grid-cols-4 gap-12">
+<footer class="py-16 text-white bg-gray-900">
+    <div class="container grid grid-cols-1 gap-12 px-6 mx-auto md:px-16 lg:px-24 md:grid-cols-4">
       <div class="col-span-1 md:col-span-1">
-        <h2 class="text-2xl font-black text-purple-400 mb-4">SwiftCart</h2>
+        <h2 class="mb-4 text-2xl font-black text-purple-400">SwiftCart</h2>
         <p class="text-gray-400">The best e-commerce experience with high quality products and services.</p>
       </div>
       <div>
-        <h4 class="font-bold mb-6">Quick Links</h4>
+        <h4 class="mb-6 font-bold">Quick Links</h4>
         <ul class="space-y-3 text-gray-400">
-          <li><a href="#" class="hover:text-purple-400">Shop</a></li>
-          <li><a href="#" class="hover:text-purple-400">About Us</a></li>
-          <li><a href="#" class="hover:text-purple-400">Contact</a></li>
+          <li><a href="products.html" class="hover:text-purple-400">Shop</a></li>
+          <li><a href="aboutUs.html" class="hover:text-purple-400">About Us</a></li>
+          <li><a href="contact.html" class="hover:text-purple-400">Contact</a></li>
         </ul>
       </div>
       <div class="col-span-1 md:col-span-2">
-        <h4 class="font-bold mb-6">Newsletter</h4>
+        <h4 class="mb-6 font-bold">Newsletter</h4>
         <div class="flex gap-2">
-          <input type="text" placeholder="Email Address" class="input bg-gray-800 border-none w-full rounded-full">
-          <button class="btn bg-purple-700 border-none text-white rounded-full px-8">Join</button>
+          <input type="text" placeholder="Email Address" class="w-full bg-gray-800 border-none rounded-full input">
+          <button class="px-8 text-white bg-purple-700 border-none rounded-full btn">Join</button>
         </div>
       </div>
     </div>
@@ -157,15 +157,15 @@
 
     <div class="drawer-side">
       <label for="cart-drawer" class="drawer-overlay"></label>
-      <div class="menu p-4 w-80 min-h-full bg-base-100 text-base-content flex flex-col">
-        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Shopping Cart</h2>
-        <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
-        <div class="border-t pt-4 mt-4">
+      <div class="flex flex-col min-h-full p-4 menu w-80 bg-base-100 text-base-content">
+        <h2 class="pb-2 mb-4 text-2xl font-bold border-b">Shopping Cart</h2>
+        <div id="cart-items" class="flex-grow space-y-4 overflow-y-auto"></div>
+        <div class="pt-4 mt-4 border-t">
           <div class="flex justify-between text-xl font-bold">
             <span>Total:</span>
             <span id="cart-total">$0.00</span>
           </div>
-          <button onclick="handleCheckout()" class="btn bg-purple-700 text-white w-full mt-4 border-none">Checkout</button>
+          <button onclick="handleCheckout()" class="w-full mt-4 text-white bg-purple-700 border-none btn">Checkout</button>
         </div>
       </div>
     </div>
