@@ -14,7 +14,7 @@ const manageSpinner = (status) => {
 // ৩. নেভবার কার্ট কাউন্ট আপডেট
 
 const updateCartCount = () => {
-    const cartCountElements = document.querySelectorAll(".cart-count"); // নেভবারে একটি ব্যাজ যোগ করতে হবে
+    const cartCountElements = document.querySelectorAll(".cart-count");
     cartCountElements.forEach(el => el.innerText = cart.length);
     localStorage.setItem("cart", JSON.stringify(cart));
 };
@@ -78,7 +78,7 @@ const displayProducts = (products) => {
     const productContainer = document.getElementById("product-container");
     products.forEach(product => {
         const card = document.createElement("div");
-        card.className = "group border border-gray-100 rounded-3xl p-4 hover:shadow-2xl transition-all bg-white flex flex-col";
+        card.className = "flex flex-col p-4 transition-all bg-white border border-gray-100 group rounded-3xl hover:shadow-2xl";
         card.innerHTML = `
             <div class="bg-gray-50 rounded-2xl h-64 overflow-hidden relative p-8">
                 <img src="${product.image}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
@@ -171,7 +171,7 @@ const displayCartItems = () => {
     cart.forEach((item, index) => {
         total += item.price;
         const div = document.createElement("div");
-        div.className = "flex items-center justify-between gap-3 border-b pb-3 mb-2";
+        div.className = "flex items-center justify-between gap-3 pb-3 mb-2 border-b";
         div.innerHTML = `
             <img src="${item.image}" class="w-12 h-12 object-contain rounded">
             <div class="flex-grow text-left">
